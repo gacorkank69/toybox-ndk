@@ -22,6 +22,7 @@ extract() {
 }
 
 deploy() {
+ui_print "- Installing ToyBox-NDK..."
 [ "$ARCH" == "arm64" ] || abort_unsupported_arch
 mkdir -p $MODPATH/system/bin
 extract "$ZIPFILE" "libs/arm64-v8a/toybox" "$TMPDIR"
@@ -33,6 +34,7 @@ INSTALLED_FLAG="/data/adb/modules/toybox-ndk/.installed"
 OLD_TOYBOX_DIR="$(dirname $INSTALLED_FLAG)"
 
 cleanup_old_toybox() {
+    ui_print "- Removing previous installation..."
     rm -rf $OLD_TOYBOX_DIR/system
     rm -f $INSTALLED_FLAG
 }
@@ -51,9 +53,14 @@ fi
 
 # remove conflicting module
 if [ -d "/data/adb/modules/toybox-ext" ]; then
+    ui_print "- Removing conflicting module.."
 	touch /data/adb/modules/toybox-ext/remove
 fi
 
 # Permission settings
 ui_print "- Permission setup"
 set_perm_recursive "$MODPATH" 0 0 0755 0755
+
+ui_print "- ToyBox-NDK has been installed successfully."
+sleep 0.5
+ui_print "- Please reboot right now."

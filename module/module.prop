@@ -3,4 +3,4 @@ name=ToyBox NDK
 version=
 versionCode=
 author=@fastbooteraselk2
-description=Static toybox binary built with the NDK. Only Supports ARM64 architecture.
+description=Static toybox binary built with the NDK. Currently only supports ARM64 architecture.
