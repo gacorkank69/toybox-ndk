@@ -1,14 +1,10 @@
 # shellcheck disable=SC1091,SC2181
 SKIPUNZIP=1
 
-make_dir() {
-	[ ! -d "$1" ] && mkdir -p "$1"
-}
-
 abort_unsupported_arch() {
 	ui_print "*********************************************************"
 	ui_print "! Unsupported Architecture: $ARCH."
-	ui_print "! Currently, toybox-ext only supports arm64 architecture."
+	ui_print "! Currently, toybox-ndk only supports arm64 architecture."
 	ui_print "! If you believe this is a mistake, please report to the maintainer."
 	abort "*********************************************************"
 }
@@ -26,14 +22,14 @@ extract() {
 }
 
 deploy() {
-[ "$ARCH" == "arm64" ] && ARCH_TMP="arm64-v8a" || abort_unsupported_arch
-make_dir "$MODPATH/system/bin"
-extract "$ZIPFILE" "libs/$ARCH_TMP/toybox" "$TMPDIR"
-cp "$TMPDIR"/libs/"$ARCH_TMP"/* "$MODPATH/system/bin/toybox-ext"
+[ "$ARCH" == "arm64" ] || abort_unsupported_arch
+mkdir -p $MODPATH/system/bin
+extract "$ZIPFILE" "libs/arm64-v8a/toybox" "$TMPDIR"
+cp "$TMPDIR"/libs/arm64-v8a/* "$MODPATH/system/bin/toybox-ndk"
 rm -rf "$TMPDIR/libs"
 }
 
-INSTALLED_FLAG="/data/adb/modules/toybox-ext/.installed"
+INSTALLED_FLAG="/data/adb/modules/toybox-ndk/.installed"
 OLD_TOYBOX_DIR="$(dirname $INSTALLED_FLAG)"
 
 cleanup_old_toybox() {
@@ -51,6 +47,11 @@ if [ -e "$INSTALLED_FLAG" ]; then
     deploy
 else
     deploy
+fi
+
+# remove conflicting module
+if [ -d "/data/adb/modules/toybox-ext" ]; then
+	touch /data/adb/modules/toybox-ext/remove
 fi
 
 # Permission settings

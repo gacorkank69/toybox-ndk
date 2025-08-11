@@ -2,7 +2,7 @@
 
 MODDIR="$(dirname "$0")"
 INSTALLED_FLAG="$MODDIR/.installed"
-TOYBOX_BIN="$MODDIR/system/bin/toybox-ext"
+TOYBOX_BIN="$MODDIR/system/bin/toybox-ndk"
 SYS_DIR="$(dirname "$TOYBOX_BIN")"
 
 if [ ! -f "$INSTALLED_FLAG" ]; then

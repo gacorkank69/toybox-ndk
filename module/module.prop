@@ -1,6 +1,6 @@
-id=toybox-ext
-name=Toybox Extended
+id=toybox-ndk
+name=ToyBox NDK
 version=
 versionCode=
 author=@fastbooteraselk2
-description=Replace your original toybox with the updated toybox. Only support ARM64.
+description=Static toybox binary built with the NDK. Only Supports ARM64 architecture.
