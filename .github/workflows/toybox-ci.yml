@@ -1,0 +1,48 @@
+name: Toybox CI
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+
+    - name: Check secrets
+      run: |
+        _e() {
+            echo "$1 secret is not set"
+            ((count++))
+        }
+        count=0
+        if [ -z "${{ secrets.TG_BOT_TOKEN }}" ]; then
+            _e "TG_BOT_TOKEN"
+        fi
+        if [ -z "${{ secrets.TG_CHAT_ID }}" ]; then
+            _e "TG_CHAT_ID"
+        fi
+        # exit if count greater than 0
+        if [ "$count" -gt 0 ]; then
+            exit $count
+        fi
+
+    - name: NDK Setup
+      run: |
+        wget -q https://dl.google.com/android/repository/android-ndk-r29-beta3-linux.zip
+        unzip -q android-ndk*.zip
+        rm android-ndk*.zip
+        mv android-ndk* android-ndk
+        echo "ANDROID_NDK_PATH=$PWD/android-ndk" >>$GITHUB_ENV
+
+    - name: Build toybox
+      env:
+        TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+        TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+      run: |
+        chmod a+x *.sh
+        ./build_toybox.sh
