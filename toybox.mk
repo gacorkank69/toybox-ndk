@@ -8,7 +8,17 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/android/device
 LOCAL_STATIC_LIBRARIES := libselinux libz libcrypto
 LOCAL_LDFLAGS := -static
 LOCAL_CFLAGS := \
--w -DTOYBOX_VENDOR=\"$(TOYBOX_VENDOR)\"
+    -Wno-char-subscripts \
+    -Wno-deprecated-declarations \
+    -Wno-invalid-source-encoding \
+    -Wno-missing-field-initializers \
+    -Wno-pointer-arith \
+    -Wno-sign-compare \
+    -Wno-string-plus-int \
+    -Wno-unused-parameter \
+    -Wno-unused-variable \
+    -funsigned-char \
+    -DTOYBOX_VENDOR=\"$(TOYBOX_VENDOR)\"
 
 LOCAL_SRC_FILES := \
     lib/args.c \
