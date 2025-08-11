@@ -8,9 +8,6 @@ send_file() {
     local capt="$2"
     local args
 
-    [ -z "$TG_BOT_TOKEN" ] && abort "TG_BOT_TOKEN is not set"
-    [ -z "$TG_CHAT_ID" ] && abort "TG_CHAT_ID is not set"
-
     if [ ! -f "$file" ]; then
         abort "File not found: $file"
     fi
