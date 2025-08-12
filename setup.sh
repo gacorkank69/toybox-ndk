@@ -8,8 +8,20 @@ progress() {
 check() {
     local dir="$1"
     local git_clone_args="$2"
-    [ "$args" == "--cleanup" ] && rm -rf "$dir" && return 0
-    [ -d "$dir" ] && git -C "$dir" pull || git clone --depth=1 $git_clone_args
+    if [ "$args" == "--cleanup" ]; then
+        rm -rf "$dir"
+        return 0
+    fi
+
+    if [ -d "$dir" ]; then
+        git -C "$dir" pull --rebase || {
+            rm -rf "$dir"
+            git clone --depth=1 $git_clone_args
+        }
+    else
+        git clone --depth=1 $git_clone_args
+    fi
+
 }
 
 export args="$1"
