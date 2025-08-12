@@ -23,8 +23,7 @@ send_file() {
     fi
 
     if ! curl -s -f "https://api.telegram.org/bot$TG_BOT_TOKEN/sendDocument" \
-         "${args[@]}"; then
+        "${args[@]}"; then
         abort "Failed to send file to Telegram"
     fi
 }
-

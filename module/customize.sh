@@ -2,32 +2,32 @@
 SKIPUNZIP=1
 
 abort_unsupported_arch() {
-	ui_print "*********************************************************"
-	ui_print "! Unsupported Architecture: $ARCH."
-	ui_print "! Currently, toybox-ndk only supports arm64 architecture."
-	ui_print "! If you believe this is a mistake, please report to the maintainer."
-	abort "*********************************************************"
+    ui_print "*********************************************************"
+    ui_print "! Unsupported Architecture: $ARCH."
+    ui_print "! Currently, toybox-ndk only supports arm64 architecture."
+    ui_print "! If you believe this is a mistake, please report to the maintainer."
+    abort "*********************************************************"
 }
 
 # extract <zip> <file> <target dir>
 extract() {
-	zip=$1
-	file=$2
-	dir=$3
+    zip=$1
+    file=$2
+    dir=$3
 
-	file_path="$dir/$file"
+    file_path="$dir/$file"
 
-	unzip -o "$zip" "$file" -d "$dir" >&2
-	[ -f "$file_path" ] || abort "$file does not exists"
+    unzip -o "$zip" "$file" -d "$dir" >&2
+    [ -f "$file_path" ] || abort "$file does not exists"
 }
 
 deploy() {
-ui_print "- Installing ToyBox-NDK..."
-[ "$ARCH" == "arm64" ] || abort_unsupported_arch
-mkdir -p $MODPATH/system/bin
-extract "$ZIPFILE" "libs/arm64-v8a/toybox" "$TMPDIR"
-cp "$TMPDIR"/libs/arm64-v8a/* "$MODPATH/system/bin/toybox-ndk"
-rm -rf "$TMPDIR/libs"
+    ui_print "- Installing ToyBox-NDK..."
+    [ "$ARCH" == "arm64" ] || abort_unsupported_arch
+    mkdir -p $MODPATH/system/bin
+    extract "$ZIPFILE" "libs/arm64-v8a/toybox" "$TMPDIR"
+    cp "$TMPDIR"/libs/arm64-v8a/* "$MODPATH/system/bin/toybox-ndk"
+    rm -rf "$TMPDIR/libs"
 }
 
 INSTALLED_FLAG="/data/adb/modules/toybox-ndk/.installed"
@@ -54,7 +54,7 @@ fi
 # remove conflicting module
 if [ -d "/data/adb/modules/toybox-ext" ]; then
     ui_print "- Removing conflicting module.."
-	touch /data/adb/modules/toybox-ext/remove
+    touch /data/adb/modules/toybox-ext/remove
 fi
 
 # Permission settings
