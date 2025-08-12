@@ -31,8 +31,11 @@ jobs:
         fi
 
     - name: NDK Setup
+      env:
+        GH_TOKEN: ${{ github.token }}
       run: |
-        wget -q https://dl.google.com/android/repository/android-ndk-r29-beta3-linux.zip
+        LATEST_VER=$(gh api "repos/android/ndk/tags" --jq '.[0].name')
+        wget -q https://dl.google.com/android/repository/android-ndk-${LATEST_VER}-linux.zip
         unzip -q android-ndk*.zip
         rm android-ndk*.zip
         mv android-ndk* android-ndk
