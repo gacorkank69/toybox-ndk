@@ -2,7 +2,7 @@ APP_ABI := arm64-v8a
 APP_PLATFORM := latest
 
 APP_CFLAGS := \
-    -Wall -Oz -flto \
+    -Wall -O3 -flto -pipe \
     -ffunction-sections -fdata-sections \
     -fno-unwind-tables -fno-asynchronous-unwind-tables \
     -fno-stack-protector -U_FORTIFY_SOURCE
