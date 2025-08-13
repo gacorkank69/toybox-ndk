@@ -5,7 +5,8 @@ APP_CFLAGS := \
     -Wall -O3 -flto -pipe \
     -ffunction-sections -fdata-sections \
     -fno-unwind-tables -fno-asynchronous-unwind-tables \
-    -fno-stack-protector -U_FORTIFY_SOURCE
+    -fno-stack-protector -U_FORTIFY_SOURCE \
+    -DANDROID -D__ANDROID__ -D__ANDROID_API__=37
 
 APP_CPPFLAGS := $(APP_CFLAGS) -std=c++23
 APP_STL := c++_static
