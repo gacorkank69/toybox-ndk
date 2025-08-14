@@ -3,7 +3,7 @@ source scripts/utils.sh
 
 # handle error
 set -e
-exec 2>&1 > >(tee build.log)
+exec > >(tee $PWD/build.log) 2>&1
 trap 'send_file "$PWD/build.log"' ERR
 
 # Setup path
