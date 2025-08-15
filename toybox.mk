@@ -17,6 +17,7 @@ LOCAL_CFLAGS := \
     -Wno-string-plus-int \
     -Wno-unused-parameter \
     -Wno-unused-variable \
+    -Wno-macro-redefined \
     -funsigned-char \
     -DTOYBOX_VENDOR=\"$(TOYBOX_VENDOR)\"
 
