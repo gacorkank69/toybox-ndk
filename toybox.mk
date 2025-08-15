@@ -205,7 +205,6 @@ LOCAL_SRC_FILES := \
     toys/posix/ulimit.c \
     toys/posix/unlink.c \
     toys/posix/uudecode.c \
-    toys/posix/uuencode.c
-
+    toys/posix/uuencode.c \
 
 include $(BUILD_EXECUTABLE)

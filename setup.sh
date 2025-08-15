@@ -31,7 +31,7 @@ if [ ! -f toybox.mk ]; then
 fi
 
 # check dependencies
-check "toybox" "https://android.googlesource.com/platform/external/toybox toybox"
+check "toybox" "https://android.googlesource.com/platform/external/toybox -b mirror-goog-main-external toybox"
 check "boringssl" "https://boringssl.googlesource.com/boringssl boringssl"
 check "jni/pcre" "https://android.googlesource.com/platform/external/pcre jni/pcre"
 check "jni/selinux" "https://android.googlesource.com/platform/external/selinux jni/selinux"
